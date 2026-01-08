@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/Cypher012/user_management/internal/db/pgtypes"
-	sqlc "github.com/Cypher012/user_management/internal/db/sqlc"
+	"github.com/Cypher012/userauth/internal/db/pgtypes"
+	sqlc "github.com/Cypher012/userauth/internal/db/sqlc"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"

@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/Cypher012/user_management/internal/db/pgtypes"
-	sqlc "github.com/Cypher012/user_management/internal/db/sqlc"
+	"github.com/Cypher012/userauth/internal/db/pgtypes"
+	sqlc "github.com/Cypher012/userauth/internal/db/sqlc"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/jackc/pgx/v5/pgxpool"

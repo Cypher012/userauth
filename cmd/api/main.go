@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/Cypher012/user_management/internal/db"
+	"github.com/Cypher012/userauth/internal/db"
 	"github.com/joho/godotenv"
 )
 

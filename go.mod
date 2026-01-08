@@ -1,4 +1,4 @@
-module github.com/Cypher012/user_management
+module github.com/Cypher012/userauth
 
 go 1.25.5
 

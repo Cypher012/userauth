@@ -3,7 +3,7 @@ package auth
 import (
 	"net/http"
 
-	"github.com/Cypher012/user_management/internal/auth"
+	"github.com/Cypher012/userauth/internal/auth"
 	"github.com/go-chi/chi/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
