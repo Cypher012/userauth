@@ -6,7 +6,6 @@ import (
 	"log"
 	"time"
 
-	"github.com/Cypher012/userauth/internal/email"
 	"github.com/Cypher012/userauth/internal/security"
 	"github.com/Cypher012/userauth/internal/token"
 )
@@ -27,14 +26,12 @@ type User struct {
 type AuthService struct {
 	repo  *AuthRepository
 	token *token.TokenService
-	email *email.Service
 }
 
-func NewAuthService(repo *AuthRepository, token *token.TokenService, email *email.Service) *AuthService {
+func NewAuthService(repo *AuthRepository, token *token.TokenService) *AuthService {
 	return &AuthService{
 		repo:  repo,
 		token: token,
-		email: email,
 	}
 }
 
@@ -87,11 +84,9 @@ func (s *AuthService) LoginUser(ctx context.Context, email, password string) (Us
 	}, nil
 }
 
-func (s *AuthService) SendVerificationEmail(ctx context.Context, email, userId string) error {
-	rawToken, err := s.token.GetVerificationEmailToken(ctx, userId, email)
-	if err != nil {
-		return err
-	}
-	go s.email.SendVerifyEmail(email, rawToken)
-	return nil
+func (s *AuthService) CreateVerificationToken(
+	ctx context.Context,
+	userID, email string,
+) (string, error) {
+	return s.token.CreateVerificationEmailToken(ctx, userID, email)
 }

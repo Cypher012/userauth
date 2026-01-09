@@ -1,11 +1,14 @@
 package main
 
 import (
+	"log"
 	"time"
 
 	"github.com/Cypher012/userauth/internal/auth"
 	"github.com/Cypher012/userauth/internal/email"
 	"github.com/Cypher012/userauth/internal/http/v1/authhttp"
+	"github.com/Cypher012/userauth/internal/links"
+	"github.com/Cypher012/userauth/internal/security"
 	"github.com/Cypher012/userauth/internal/token"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -21,11 +24,23 @@ func NewRouter(pool *pgxpool.Pool, jwt *auth.JWTAuth) chi.Router {
 	r.Use(middleware.Timeout(60 * time.Second))
 	r.Use(middleware.Heartbeat("/ok"))
 
-	emailService := email.EmailConfig()
-	tokenService := token.TokenConfig(pool)
+	baseURL, err := security.GetEnv("API_BASE_URL")
+	if err != nil {
+		log.Fatal(err)
+	}
+	email_token_secret, err := security.GetEnv("EMAIL_TOKEN_SECRET")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	r.Route("/api", func(r chi.Router) {
-		authhttp.RegisterAuth(r, pool, jwt, emailService, tokenService)
+	links := links.New(baseURL)
+	emailSvc := email.EmailConfig(links)
+	tokenSvc := token.TokenConfig(pool, email_token_secret)
+
+	authModule := authhttp.NewModule(pool, tokenSvc, emailSvc, jwt)
+
+	r.Route("/api/v1/auth", func(r chi.Router) {
+		r.Mount("/", authModule.Router)
 	})
 
 	return r

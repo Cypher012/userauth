@@ -7,7 +7,7 @@ import (
 
 type Template struct {
 	verify  *template.Template
-	reset   *template.Template
+	forget  *template.Template
 	welcome *template.Template
 }
 
@@ -16,7 +16,7 @@ func LoadTemplates() (*Template, error) {
 	if err != nil {
 		return nil, err
 	}
-	reset, err := template.ParseFiles("internal/email/templates/reset.html")
+	forget, err := template.ParseFiles("internal/email/templates/forget.html")
 	if err != nil {
 		return nil, err
 	}
@@ -28,7 +28,7 @@ func LoadTemplates() (*Template, error) {
 
 	return &Template{
 		verify:  verify,
-		reset:   reset,
+		forget:  forget,
 		welcome: welcome,
 	}, nil
 }

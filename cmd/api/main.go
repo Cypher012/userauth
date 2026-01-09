@@ -31,6 +31,7 @@ func main() {
 	r := NewRouter(dbPool, jwt)
 
 	port, err := security.GetEnv("PORT")
+	log.Printf("PORT: %s", port)
 	if err != nil {
 		log.Fatal(err)
 	}

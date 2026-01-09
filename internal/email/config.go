@@ -4,10 +4,11 @@ import (
 	"log"
 	"strconv"
 
+	"github.com/Cypher012/userauth/internal/links"
 	"github.com/Cypher012/userauth/internal/security"
 )
 
-func EmailConfig() *Service {
+func EmailConfig(links *links.Links) *EmailService {
 	smtpPass, _ := security.GetEnv("BREVO_SMTP_PASS")
 	port, _ := security.GetEnv("BREVO_SMTP_PORT")
 	username, _ := security.GetEnv("BREVO_SMTP_USERNAME")
@@ -31,12 +32,12 @@ func EmailConfig() *Service {
 		log.Fatal("BREVO_SMTP_PORT must be a valid number")
 	}
 
-	smtpMailer := NewSTMPMailer(host, portInt, username, smtpPass, "My App <no-reply@myapp.com>")
+	smtpMailer := NewSTMPMailer(host, portInt, username, smtpPass, "ayoojoade@gmail.com")
 
 	templates, err := LoadTemplates()
 	if err != nil {
-		log.Fatal()
+		log.Fatal(err)
 	}
 
-	return NewService(smtpMailer, templates)
+	return NewService(smtpMailer, templates, links)
 }

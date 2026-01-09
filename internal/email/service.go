@@ -1,18 +1,26 @@
 package email
 
-type Service struct {
+import (
+	"log"
+
+	"github.com/Cypher012/userauth/internal/links"
+)
+
+type EmailService struct {
 	sender    Sender
 	templates *Template
+	links     *links.Links
 }
 
-func NewService(sender Sender, templates *Template) *Service {
-	return &Service{
+func NewService(sender Sender, templates *Template, links *links.Links) *EmailService {
+	return &EmailService{
 		sender:    sender,
 		templates: templates,
+		links:     links,
 	}
 }
 
-func (s *Service) SendWelcomeEmail(to string) error {
+func (s *EmailService) SendWelcomeEmail(to string) error {
 	html, err := render(s.templates.welcome, nil)
 	if err != nil {
 		return err
@@ -20,9 +28,12 @@ func (s *Service) SendWelcomeEmail(to string) error {
 	return s.sender.Send(to, "Welcome to my app", html)
 }
 
-func (s *Service) SendVerifyEmail(to, token string) error {
+func (s *EmailService) SendVerifyEmail(to, token string) error {
+	verifyEmailURL := s.links.VerifyEmail(token)
+	log.Println(to)
+	log.Println(verifyEmailURL)
 	html, err := render(s.templates.verify, map[string]string{
-		"Token": token,
+		"verify_email_url": verifyEmailURL,
 	})
 	if err != nil {
 		return err
@@ -30,9 +41,10 @@ func (s *Service) SendVerifyEmail(to, token string) error {
 	return s.sender.Send(to, "Verify your email", html)
 }
 
-func (s *Service) SendResetPasswordEmail(to, token string) error {
-	html, err := render(s.templates.reset, map[string]string{
-		"Token": token,
+func (s *EmailService) SendForgetPasswordEmail(to, token string) error {
+	forgetPasswordURL := s.links.ForgetPassword(token)
+	html, err := render(s.templates.forget, map[string]string{
+		"forget_password_url": forgetPasswordURL,
 	})
 	if err != nil {
 		return err

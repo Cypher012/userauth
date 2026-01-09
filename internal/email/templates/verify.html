@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Verify Your Email</title>
+    </head>
+    <body
+        style="
+            margin: 0;
+            padding: 0;
+            font-family:
+                &quot;Segoe UI&quot;, Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fa;
+        "
+    >
+        <table
+            role="presentation"
+            width="100%"
+            cellspacing="0"
+            cellpadding="0"
+            style="min-height: 100vh"
+        >
+            <tr>
+                <td align="center" style="padding: 40px 20px">
+                    <table
+                        role="presentation"
+                        width="100%"
+                        cellspacing="0"
+                        cellpadding="0"
+                        style="
+                            max-width: 600px;
+                            background-color: #ffffff;
+                            border-radius: 16px;
+                            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+                            overflow: hidden;
+                        "
+                    >
+                        <!-- Header -->
+                        <tr>
+                            <td
+                                style="
+                                    background: linear-gradient(
+                                        135deg,
+                                        #667eea 0%,
+                                        #764ba2 100%
+                                    );
+                                    padding: 40px 40px 30px;
+                                    text-align: center;
+                                "
+                            >
+                                <div
+                                    style="
+                                        width: 80px;
+                                        height: 80px;
+                                        background-color: rgba(
+                                            255,
+                                            255,
+                                            255,
+                                            0.2
+                                        );
+                                        border-radius: 50%;
+                                        margin: 0 auto 20px;
+                                        display: inline-block;
+                                        line-height: 80px;
+                                    "
+                                >
+                                    <span style="font-size: 36px">&#9993;</span>
+                                </div>
+                                <h1
+                                    style="
+                                        color: #ffffff;
+                                        margin: 0;
+                                        font-size: 28px;
+                                        font-weight: 600;
+                                        letter-spacing: -0.5px;
+                                    "
+                                >
+                                    Verify Your Email
+                                </h1>
+                            </td>
+                        </tr>
+
+                        <!-- Content -->
+                        <tr>
+                            <td style="padding: 40px">
+                                <p
+                                    style="
+                                        color: #374151;
+                                        font-size: 16px;
+                                        line-height: 1.7;
+                                        margin: 0 0 24px;
+                                    "
+                                >
+                                    Hello,
+                                </p>
+                                <p
+                                    style="
+                                        color: #374151;
+                                        font-size: 16px;
+                                        line-height: 1.7;
+                                        margin: 0 0 24px;
+                                    "
+                                >
+                                    Thank you for signing up! To complete your
+                                    registration and start using your account,
+                                    please verify your email address by clicking
+                                    the button below.
+                                </p>
+
+                                <!-- CTA Button -->
+                                <table
+                                    role="presentation"
+                                    width="100%"
+                                    cellspacing="0"
+                                    cellpadding="0"
+                                    style="margin: 32px 0"
+                                >
+                                    <tr>
+                                        <td align="center">
+                                            <a
+                                                href="{{.verify_email_url}}"
+                                                style="
+                                                    display: inline-block;
+                                                    background: linear-gradient(
+                                                        135deg,
+                                                        #667eea 0%,
+                                                        #764ba2 100%
+                                                    );
+                                                    color: #ffffff;
+                                                    text-decoration: none;
+                                                    padding: 16px 48px;
+                                                    border-radius: 8px;
+                                                    font-size: 16px;
+                                                    font-weight: 600;
+                                                    letter-spacing: 0.5px;
+                                                    box-shadow: 0 4px 14px
+                                                        rgba(102, 126, 234, 0.4);
+                                                "
+                                            >
+                                                Verify Email Address
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <p
+                                    style="
+                                        color: #6b7280;
+                                        font-size: 14px;
+                                        line-height: 1.7;
+                                        margin: 0 0 16px;
+                                    "
+                                >
+                                    If the button doesn't work, copy and paste
+                                    this link into your browser:
+                                </p>
+                                <p
+                                    style="
+                                        background-color: #f3f4f6;
+                                        padding: 12px 16px;
+                                        border-radius: 6px;
+                                        word-break: break-all;
+                                        margin: 0 0 24px;
+                                    "
+                                >
+                                    <a
+                                        href="{{.verify_email_url}}"
+                                        style="
+                                            color: #667eea;
+                                            text-decoration: none;
+                                            font-size: 13px;
+                                        "
+                                        >{{.verify_email_url}}</a
+                                    >
+                                </p>
+
+                                <div
+                                    style="
+                                        border-top: 1px solid #e5e7eb;
+                                        padding-top: 24px;
+                                        margin-top: 24px;
+                                    "
+                                >
+                                    <p
+                                        style="
+                                            color: #9ca3af;
+                                            font-size: 13px;
+                                            line-height: 1.6;
+                                            margin: 0;
+                                        "
+                                    >
+                                        <strong style="color: #6b7280"
+                                            >Security Notice:</strong
+                                        >
+                                        This link will expire in 24 hours. If
+                                        you didn't create an account, you can
+                                        safely ignore this email.
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Footer -->
+                        <tr>
+                            <td
+                                style="
+                                    background-color: #f9fafb;
+                                    padding: 24px 40px;
+                                    text-align: center;
+                                    border-top: 1px solid #e5e7eb;
+                                "
+                            >
+                                <p
+                                    style="
+                                        color: #9ca3af;
+                                        font-size: 12px;
+                                        margin: 0 0 8px;
+                                    "
+                                >
+                                    This is an automated message. Please do not
+                                    reply to this email.
+                                </p>
+                                <p
+                                    style="
+                                        color: #9ca3af;
+                                        font-size: 12px;
+                                        margin: 0;
+                                    "
+                                >
+                                    &copy; 2025 Your Company. All rights
+                                    reserved.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

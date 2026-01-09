@@ -2,20 +2,24 @@ package authhttp
 
 import (
 	"errors"
+	"log"
 	"net/http"
 
 	"github.com/Cypher012/userauth/internal/auth"
+	"github.com/Cypher012/userauth/internal/email"
 	"github.com/Cypher012/userauth/internal/http/httputil"
 )
 
 type AuthHandler struct {
 	service *auth.AuthService
+	email   *email.EmailService
 	jwt     *auth.JWTAuth
 }
 
-func NewAuthHandler(service *auth.AuthService, jwt *auth.JWTAuth) *AuthHandler {
+func NewAuthHandler(service *auth.AuthService, email *email.EmailService, jwt *auth.JWTAuth) *AuthHandler {
 	return &AuthHandler{
 		service: service,
+		email:   email,
 		jwt:     jwt,
 	}
 }
@@ -50,6 +54,25 @@ func (h *AuthHandler) SignUpHandler(w http.ResponseWriter, r *http.Request) {
 		httputil.ErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return
 	}
+
+	rawToken, err := h.service.CreateVerificationToken(
+		r.Context(),
+		user.ID,
+		user.Email,
+	)
+	if err != nil {
+		httputil.ErrorResponse(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	go func(email, token string) {
+		log.Printf("sending verify email to %s...", email)
+		if err := h.email.SendVerifyEmail(email, token); err != nil {
+			log.Printf("verify email failed: %v", err)
+		} else {
+			log.Printf("verify email sent successfully to %s", email)
+		}
+	}(user.Email, rawToken)
 
 	payload := UserResponse{
 		Message: "User sign up succesful",
@@ -105,5 +128,21 @@ func (h *AuthHandler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *AuthHandler) VerifyEmailHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+}
+
+func (h *AuthHandler) ResendVerifyHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+}
+
+func (h *AuthHandler) ForgetPasswordHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+}
+
+func (h *AuthHandler) ResetPasswordHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+}
+
+func (h *AuthHandler) RefreshTokenHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 }
